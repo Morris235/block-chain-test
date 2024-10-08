@@ -1,6 +1,6 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
-from routers import account, wallets, deposit
+from routers import account, wallets, deposit, withdrawal
 
 
 @asynccontextmanager
@@ -14,6 +14,7 @@ app = FastAPI(title="block_chain_test", version="0.0.1", lifespan=lifespan, debu
 app.include_router(account.router)
 app.include_router(wallets.router)
 app.include_router(deposit.router)
+app.include_router(withdrawal.router)
 
 @app.get("/")
 async def read_root():

@@ -1,10 +1,10 @@
 import time
 
-from api.v1.client import client_info
+from api.v1.client import binance_client
 
 
 def binance_server_timestamp():
-    server_time = client_info().get_server_time()
+    server_time = binance_client().get_server_time()
     server_timestamp = server_time['serverTime']
     return server_timestamp
 
