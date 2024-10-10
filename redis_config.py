@@ -10,7 +10,7 @@ def redis_config():
     try:
         # 환경 변수에서 Redis 설정 불러오기
         REDIS_HOST = os.getenv("REDIS_HOST")
-        REDIS_PORT = int(os.getenv("REDIS_PORT", 6380))  # 기본값을 6380로 설정
+        REDIS_PORT = int(os.getenv("REDIS_PORT", 6479))  # 기본값을 6479로 설정
         REDIS_DATABASE = int(os.getenv("REDIS_DATABASE", 0))  # 기본값을 0으로 설정
 
         # Redis 클라이언트 생성

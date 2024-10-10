@@ -1,6 +1,6 @@
 import os
 
-from binance import Client
+from binance.client import Client
 from dotenv import load_dotenv
 
 
