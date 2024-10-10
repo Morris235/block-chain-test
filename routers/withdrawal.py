@@ -13,7 +13,7 @@ client = binance_client()
 # 출금 상태 : 출금이 완료된 후 출금 상태를 확인해야 함
 # #
 @router.post("/api/withdrawal/order", tags=["Withdrawal"])
-async def post_withdrawal(asset, amount, address, network=None):
+async def post_withdrawal_order(asset, amount, address, network=None):
     try:
         response = client.withdraw(
             asset=asset,

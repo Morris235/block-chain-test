@@ -1,5 +1,7 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
+
+from models.deposit_model import DepositModel
 from routers import account, wallets, deposit, withdrawal
 
 
@@ -9,7 +11,13 @@ async def lifespan(app: FastAPI):
     yield
     print(f'stop server')
 
-app = FastAPI(title="block_chain_test", version="0.0.1", lifespan=lifespan, debug=True)
+app = FastAPI(title="Block chain API test", version="0.0.1", lifespan=lifespan, debug=True)
+
+@app.webhooks.post("new-subscription")
+def new_subscription(body: DepositModel):
+    """
+    사용자 코인 입금시 작동
+    """
 
 app.include_router(account.router)
 app.include_router(wallets.router)
