@@ -15,7 +15,7 @@ client = binance_client()
 # 바이낸스 API : 초당 1200건 (엔드포인트마다 상이할수 있음)
 # IP 기반 제한 : 특정 IP 주소에서 요청을 초과할 경우, 해당 IP는 일시적으로 차단될 수 있다.
 @router.get("/api/deposit/inquire", tags=["Deposit"])
-async def get_deposit_address(symbol: str):
+async def get_deposit_address(symbol: str) -> dict:
     try:
         deposit_address = client.get_deposit_address(coin=symbol)
         if deposit_address.get('tag'):
@@ -26,13 +26,13 @@ async def get_deposit_address(symbol: str):
 
 #FIXME: 기간 설정 파라미터로 받기, 테스트 편의상 하드코딩됨
 @router.get("/api/deposit/history", tags=["Deposit"])
-async def get_deposit_history():
+async def get_deposit_history() -> list:
     # 입금 내역 조회 (기간 설정)
-    start_time = datetime.datetime(2024, 9, 1)
-    start_timestamp = int(start_time.timestamp() * 1000)
+    start_time: datetime = datetime.datetime(2024, 9, 1)
+    start_timestamp: int = int(start_time.timestamp() * 1000)
     deposit_history_list = []
     try:
-        deposits = client.get_deposit_history(startTime=start_timestamp)
+        deposits: dict = client.get_deposit_history(startTime=start_timestamp)
         for deposit in deposits:
             deposit_history_list.append(deposit)
         return deposit_history_list

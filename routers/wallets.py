@@ -6,7 +6,7 @@ router: APIRouter = APIRouter()
 
 client = binance_client()
 
-@router.get("/api/wallet/spot", tags=["Wallet"])
+@router.get("/api/wallet/spot/all", tags=["Wallet"])
 async def get_wallet_spot():
     try:
         coin_list = []
@@ -19,10 +19,10 @@ async def get_wallet_spot():
     except Exception as e:
         print(f"An error occurred: {e}")
 
-@router.get("/api/wallet/margin", tags=["Wallet"])
+@router.get("/api/wallet/margin/all", tags=["Wallet"])
 async def get_wallet_margin():
     try:
-        margin_info = client.get_margin_account()
+        margin_info: dict = client.get_margin_account()
         coin_list = []
         for asset in margin_info['userAssets']:
             coin_list.append({"Asset": asset['asset'], "Free": asset['free'], "Borrowed": asset['borrowed'], "Interest": asset['interest']})

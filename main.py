@@ -13,6 +13,11 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="Block chain API test", version="0.0.1", lifespan=lifespan, debug=True)
 
+app.include_router(account.router)
+app.include_router(wallets.router)
+app.include_router(deposit.router)
+app.include_router(withdrawal.router)
+
 # FIXME: 수동으로 트리거를 만들어서 사용해야함.
 # FIXME: webhook을 이렇게 만드는건지 확실치 않음. 말이 webhook이지 바이낸스 API에서 입금 알림을 제공하지 않는다.
 # FIXME: 따라서 결국엔 개발 API에서 입금을 수신해야 한다.
@@ -31,11 +36,6 @@ async def withdrawal_webhook(request: DepositModel):
     """
     data = request.model_dump_json()
     return {"data" : data}
-
-app.include_router(account.router)
-app.include_router(wallets.router)
-app.include_router(deposit.router)
-app.include_router(withdrawal.router)
 
 @app.get("/")
 async def read_root():
